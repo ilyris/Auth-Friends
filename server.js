@@ -61,9 +61,11 @@ function authenticator(req, res, next) {
 }
 
 app.post('/api/login', (req, res) => {
+  console.log(req.body);
   const { username, password } = req.body;
-  if (username === 'Lambda School' && password === 'i<3Lambd4') {
+  if (username === 'Lambda' && password === 'fuck') {
     req.loggedIn = true;
+    console.log('A fucking right doggie');
     res.status(200).json({
       payload: token
     });
@@ -75,6 +77,7 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/friends', authenticator, (req, res) => {
+  console.log('friends hit');
   setTimeout(() => {
     res.send(friends);
   }, 1000);
@@ -91,6 +94,7 @@ app.get('/api/friends/:id', authenticator, (req, res) => {
 });
 
 app.post('/api/friends', authenticator, (req, res) => {
+  console.log(req.body);
   const friend = { id: getNextId(), ...req.body };
 
   friends = [...friends, friend];
